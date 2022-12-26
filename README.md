@@ -2,7 +2,7 @@
 A website to help old people find partners for sports, swimming, and other activities.
 
 # about the website 
-![‏‏ConnectionsLogo](https://user-images.githubusercontent.com/107985307/209576635-91c4b716-6cd3-4755-be66-d428b65aea44.JPG)
+![‏‏ConnectionsLogo](https://user-images.githubusercontent.com/107985307/209576685-88746987-be43-4eee-9ae7-9f0e40bf7251.JPG)
 
 Connections is a website dedicated to helping older individuals find partners for sports, swimming, and other activities. We understand that as we age, it can sometimes be difficult to find like-minded individuals to engage in activities with. That's where we come in.
 
