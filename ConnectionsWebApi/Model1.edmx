@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="connectionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="100" />
+          <Property Name="VerbName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mach">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestId1" Type="bigint" Nullable="false" />
+          <Property Name="RequestId2" Type="bigint" Nullable="false" />
+          <Property Name="Length" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DayInWeek" Type="int" Nullable="false" />
+          <Property Name="TimeInDay" Type="datetime" Nullable="false" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="UniqeID" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_request_events">
+          <End Role="events" Type="Self.events" Multiplicity="1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="connectionsModelStoreContainer">
+          <EntitySet Name="events" EntityType="Self.events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mach" EntityType="Self.mach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_request_events" Association="Self.FK_request_events">
+            <End Role="events" EntitySet="events" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_users" Association="Self.FK_request_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="connectionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="connectionsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="events" EntityType="connectionsModel.events" />
+          <EntitySet Name="mach" EntityType="connectionsModel.mach" />
+          <EntitySet Name="request" EntityType="connectionsModel.request" />
+          <EntitySet Name="users" EntityType="connectionsModel.users" />
+          <AssociationSet Name="FK_request_events" Association="connectionsModel.FK_request_events">
+            <End Role="events" EntitySet="events" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_request_users" Association="connectionsModel.FK_request_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VerbName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="request" Relationship="connectionsModel.FK_request_events" FromRole="events" ToRole="request" />
+        </EntityType>
+        <EntityType Name="mach">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId1" Type="Int64" Nullable="false" />
+          <Property Name="RequestId2" Type="Int64" Nullable="false" />
+          <Property Name="Length" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DayInWeek" Type="Int32" Nullable="false" />
+          <Property Name="TimeInDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="events" Relationship="connectionsModel.FK_request_events" FromRole="request" ToRole="events" />
+          <NavigationProperty Name="users" Relationship="connectionsModel.FK_request_users" FromRole="request" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="UniqeID" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="request" Relationship="connectionsModel.FK_request_users" FromRole="users" ToRole="request" />
+        </EntityType>
+        <Association Name="FK_request_events">
+          <End Type="connectionsModel.events" Role="events" Multiplicity="1" />
+          <End Type="connectionsModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_request_users">
+          <End Type="connectionsModel.users" Role="users" Multiplicity="1" />
+          <End Type="connectionsModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="connectionsModelStoreContainer" CdmEntityContainer="connectionsEntities">
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="connectionsModel.events">
+              <MappingFragment StoreEntitySet="events">
+                <ScalarProperty Name="VerbName" ColumnName="VerbName" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mach">
+            <EntityTypeMapping TypeName="connectionsModel.mach">
+              <MappingFragment StoreEntitySet="mach">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="RequestId2" ColumnName="RequestId2" />
+                <ScalarProperty Name="RequestId1" ColumnName="RequestId1" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="request">
+            <EntityTypeMapping TypeName="connectionsModel.request">
+              <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="TimeInDay" ColumnName="TimeInDay" />
+                <ScalarProperty Name="DayInWeek" ColumnName="DayInWeek" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="connectionsModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="UniqeID" ColumnName="UniqeID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
